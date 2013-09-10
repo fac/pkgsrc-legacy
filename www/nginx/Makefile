@@ -5,3 +5,4 @@ PKGREVISION=		1
 MAINTAINER=		joerg@NetBSD.org
 
 .include "../../www/nginx/Makefile.common"
+

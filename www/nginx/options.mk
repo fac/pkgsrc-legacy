@@ -3,7 +3,7 @@
 PKG_OPTIONS_VAR=	PKG_OPTIONS.nginx
 PKG_SUPPORTED_OPTIONS=	dav flv gtools inet6 mail-proxy memcache naxsi pcre \
 			push realip ssl sub uwsgi image-filter upload debug \
-			status nginx-autodetect-cflags spdy
+			status nginx-autodetect-cflags spdy geoip
 PKG_SUPPORTED_OPTIONS+=	passenger
 PKG_SUGGESTED_OPTIONS=	inet6 pcre ssl
 
@@ -44,6 +44,11 @@ CONFIGURE_ARGS+=	--with-http_flv_module
 
 .if !empty(PKG_OPTIONS:Mspdy)
 CONFIGURE_ARGS+=	--with-http_spdy_module
+.endif
+
+.if !empty(PKG_OPTIONS:Mgeoip)
+.include "../../net/GeoIP/buildlink3.mk"
+CONFIGURE_ARGS+= --with-http_geoip_module
 .endif
 
 .if !empty(PKG_OPTIONS:Msub)
