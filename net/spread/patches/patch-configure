@@ -1,9 +1,105 @@
-$NetBSD: patch-configure,v 1.1 2013/08/26 15:00:33 fhajny Exp $
+$NetBSD$
 
-Make piddir configurable.
---- configure.orig	2013-08-26 14:49:35.051354307 +0000
+--- configure.orig	2002-10-01 21:02:13.000000000 +0000
 +++ configure
-@@ -3397,14 +3397,6 @@ if test "${with_pid_dir+set}" = set; the
+@@ -2262,95 +2262,10 @@ rm -f conftest*
+ 
+ fi
+ 
+-echo "$ac_t""$ac_cv_have_struct_msghdr" 1>&6
+-if test "x$ac_cv_have_struct_msghdr" = "xno" ; then
+-	cat >> confdefs.h <<\EOF
++cat >> confdefs.h <<\EOF
+ #define ARCH_SCATTER_NONE 1
+ EOF
+ 
+-else
+-  have_scatter="no"
+-  echo $ac_n "checking for struct msghdr accrights""... $ac_c" 1>&6
+-echo "configure:2275: checking for struct msghdr accrights" >&5
+-if eval "test \"`echo '$''{'ac_cv_have_struct_msghdr_acc'+set}'`\" = set"; then
+-  echo $ac_n "(cached) $ac_c" 1>&6
+-else
+-  
+-        cat > conftest.$ac_ext <<EOF
+-#line 2281 "configure"
+-#include "confdefs.h"
+- #include <sys/types.h>
+-		  #include <sys/socket.h> 
+-int main() {
+- static  struct  msghdr msg; msg.msg_accrightslen = 0; 
+-; return 0; }
+-EOF
+-if { (eval echo configure:2289: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
+-  rm -rf conftest*
+-   ac_cv_have_struct_msghdr_acc="yes" 
+-else
+-  echo "configure: failed program was:" >&5
+-  cat conftest.$ac_ext >&5
+-  rm -rf conftest*
+-   ac_cv_have_struct_msghdr_acc="no" 
+-        
+-fi
+-rm -f conftest*
+-  
+-fi
+-
+-echo "$ac_t""$ac_cv_have_struct_msghdr_acc" 1>&6
+-  if test "x$ac_cv_have_struct_msghdr_acc" = "xyes" ; then
+-	cat >> confdefs.h <<\EOF
+-#define ARCH_SCATTER_ACCRIGHTS 1
+-EOF
+-
+-	have_scatter="yes"
+-  fi
+-  if test "x$have_scatter" = "xno" ; then
+-	echo $ac_n "checking for struct msghdr control""... $ac_c" 1>&6
+-echo "configure:2313: checking for struct msghdr control" >&5
+-if eval "test \"`echo '$''{'ac_cv_have_struct_msghdr_ctl'+set}'`\" = set"; then
+-  echo $ac_n "(cached) $ac_c" 1>&6
+-else
+-  
+-	    cat > conftest.$ac_ext <<EOF
+-#line 2319 "configure"
+-#include "confdefs.h"
+- #include <sys/types.h>
+-	      #include <sys/socket.h> 
+-int main() {
+- static  struct  msghdr msg; msg.msg_controllen = 0; 
+-; return 0; }
+-EOF
+-if { (eval echo configure:2327: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
+-  rm -rf conftest*
+-   ac_cv_have_struct_msghdr_ctl="yes" 
+-else
+-  echo "configure: failed program was:" >&5
+-  cat conftest.$ac_ext >&5
+-  rm -rf conftest*
+-   ac_cv_have_struct_msghdr_ctl="no" 
+-            
+-fi
+-rm -f conftest*
+-     	
+-fi
+-
+-echo "$ac_t""$ac_cv_have_struct_msghdr_ctl" 1>&6
+-	if test "x$ac_cv_have_struct_msghdr_ctl" = "xyes" ; then
+-	    cat >> confdefs.h <<\EOF
+-#define ARCH_SCATTER_CONTROL 1
+-EOF
+-
+-            have_scatter="yes"
+-	fi
+-  fi
+-  if test "x$have_scatter" = "xno" ; then
+-        { echo "configure: error: *** cannot determine which scatter type to use ***" 1>&2; exit 1; }
+-  fi
+-fi
+-
+ echo $ac_n "checking for u_int type""... $ac_c" 1>&6
+ echo "configure:2356: checking for u_int type" >&5
+ if eval "test \"`echo '$''{'ac_cv_have_u_int'+set}'`\" = set"; then
+@@ -3397,14 +3312,6 @@ if test "${with_pid_dir+set}" = set; the
  fi
  
  
