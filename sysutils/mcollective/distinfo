@@ -1,5 +1,5 @@
 $NetBSD: distinfo,v 1.1 2012/08/12 09:15:57 imil Exp $
 
-SHA1 (mcollective-2.1.1.tgz) = 07cf618e4657f3460baee629eb2358bb5adeac2d
-RMD160 (mcollective-2.1.1.tgz) = d87a528463f83a9a06b2fbd8127077e3754ba7e6
-Size (mcollective-2.1.1.tgz) = 1092213 bytes
+SHA1 (mcollective-2.3.2.tgz) = 3edb322bfcb3509189c8744c780cbdd3e89db393
+RMD160 (mcollective-2.3.2.tgz) = f98cb3b500bc77ca46d69057d6e346997553068c
+Size (mcollective-2.3.2.tgz) = 925202 bytes

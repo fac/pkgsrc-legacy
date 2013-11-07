@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.2 2012/10/23 19:51:12 asau Exp $
 #
 
-DISTNAME=	mcollective-2.1.1
+DISTNAME=	mcollective-2.3.2
 CATEGORIES=	sysutils
 MASTER_SITES=	http://downloads.puppetlabs.com/mcollective/
 EXTRACT_SUFX=	.tgz
