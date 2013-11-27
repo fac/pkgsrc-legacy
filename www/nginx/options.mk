@@ -5,7 +5,7 @@ PKG_SUPPORTED_OPTIONS=	dav flv gtools inet6 mail-proxy memcache naxsi pcre \
 			push realip ssl sub uwsgi image-filter upload debug \
 			status nginx-autodetect-cflags spdy geoip
 PKG_SUPPORTED_OPTIONS+=	passenger
-PKG_SUGGESTED_OPTIONS=	inet6 pcre ssl
+PKG_SUGGESTED_OPTIONS=	inet6 naxsi pcre ssl sub realip status spdy geoip
 
 PLIST_VARS+=		naxsi uwsgi
 
