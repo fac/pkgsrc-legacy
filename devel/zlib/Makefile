@@ -15,6 +15,7 @@ LICENSE=	zlib
 PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 USE_LIBTOOL=		yes
+USE_MULTIARCH=		lib
 
 PKGCONFIG_OVERRIDE+=	zlib.pc.in
 
@@ -32,13 +33,13 @@ SUBST_SED.pc+=	-e "s,@includedir@,${PREFIX}/include,g"
 SUBST_SED.pc+=	-e "s,@libdir@,${PREFIX}/lib,g"
 SUBST_SED.pc+=	-e "s,@sharedlibdir@,${PREFIX}/lib,g"
 
-INSTALLATION_DIRS=	include lib/pkgconfig ${PKGMANDIR}/man3
+INSTALLATION_DIRS=	include lib${LIBARCHSUFFIX}/pkgconfig ${PKGMANDIR}/man3
 
 do-extract:
 	${CP} -r ${FILESDIR} ${WRKSRC}
 
 do-install:
-	${LIBTOOL} --mode=install ${INSTALL_LIB} ${WRKSRC}/libz.la ${DESTDIR}${PREFIX}/lib
+	${LIBTOOL} --mode=install ${INSTALL_LIB} ${WRKSRC}/libz.la ${DESTDIR}${PREFIX}/lib${LIBARCHSUFFIX}
 	${INSTALL_MAN} ${WRKSRC}/zlib.3 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man3
 	${INSTALL_DATA} ${WRKSRC}/zconf.h ${DESTDIR}${PREFIX}/include
 	${INSTALL_DATA} ${WRKSRC}/zlib.h ${DESTDIR}${PREFIX}/include
