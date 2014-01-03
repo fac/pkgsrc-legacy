@@ -30,7 +30,7 @@ SUBST_SED.pc=	-e "s,@prefix@,${PREFIX},g"
 SUBST_SED.pc+=	-e "s,@exec_prefix@,${PREFIX},g"
 SUBST_SED.pc+=	-e "s,@VERSION@,${PKGVERSION_NOREV},g"
 SUBST_SED.pc+=	-e "s,@includedir@,${PREFIX}/include,g"
-SUBST_SED.pc+=	-e "s,@libdir@,${PREFIX}/lib,g"
+SUBST_SED.pc+=	-e "s,@libdir@,${PREFIX}/lib${LIBARCHSUFFIX},g"
 SUBST_SED.pc+=	-e "s,@sharedlibdir@,${PREFIX}/lib,g"
 
 INSTALLATION_DIRS=	include lib${LIBARCHSUFFIX}/pkgconfig ${PKGMANDIR}/man3
@@ -43,6 +43,6 @@ do-install:
 	${INSTALL_MAN} ${WRKSRC}/zlib.3 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man3
 	${INSTALL_DATA} ${WRKSRC}/zconf.h ${DESTDIR}${PREFIX}/include
 	${INSTALL_DATA} ${WRKSRC}/zlib.h ${DESTDIR}${PREFIX}/include
-	${INSTALL_DATA} ${WRKSRC}/zlib.pc.in ${DESTDIR}${PREFIX}/lib/pkgconfig/zlib.pc
+	${INSTALL_DATA} ${WRKSRC}/zlib.pc.in ${DESTDIR}${PREFIX}/lib${LIBARCHSUFFIX}/pkgconfig/zlib.pc
 
 .include "../../mk/bsd.pkg.mk"
