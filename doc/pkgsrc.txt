@@ -2254,16 +2254,16 @@ be read-only, some other must be writable. Some can be on remote filesystems
 (such as NFS) and some should be local. Some can be temporary filesystems,
 others must survive a sudden reboot.
 
-  * 10 GB for the distfiles (read-write, remote, temporary)
+  * 40 GB for the distfiles (read-write, remote, temporary)
 
-  * 10 GB for the binary packages (read-write, remote, permanent)
+  * 30 GB for the binary packages (read-write, remote, permanent)
 
-  * 400 MB for the pkgsrc tree (read-only, remote, permanent)
+  * 1 GB for the pkgsrc tree (read-only, remote, permanent)
 
   * 5 GB for LOCALBASE (read-write, local, temporary for pbulk, permanent for
     old-bulk)
 
-  * 5 GB for the log files (read-write, remote, permanent)
+  * 10 GB for the log files (read-write, remote, permanent)
 
   * 5 GB for temporary files (read-write, local, temporary)
 
@@ -2421,11 +2421,11 @@ rebuild them, and they can be used to debug these broken package builds later.
 
 7.3.5. Disk space requirements
 
-Currently, roughly the following requirements are valid for NetBSD 2.0/i386:
+Currently, roughly the following requirements are valid for NetBSD 6.99/amd64:
 
-  * 10 GB - distfiles (NFS ok)
+  * 40 GB - distfiles (NFS ok)
 
-  * 8 GB - full set of all binaries (NFS ok)
+  * 30 GB - full set of all binaries (NFS ok)
 
   * 5 GB - temp space for compiling (local disk recommended)
 
@@ -2474,7 +2474,7 @@ src/etc, be sure the following items are present and properly configured:
 
     # ln -sf /usr/share/zoneinfo/UTC /usr/sandbox/etc/localtime
 
- 6. /usr/src (system sources, e. g. for sysutils/aperture):
+ 6. /usr/src (system sources, rarely used by packages if at all:
 
     # ln -s ../disk1/cvs .
               # ln -s cvs/src-2.0 src
@@ -3000,12 +3000,12 @@ By default, resuming transfers in pkgsrc is disabled, but you can enable this
 feature by adding the option PKG_RESUME_TRANSFERS=YES into mk.conf. If, during
 a fetch step, an incomplete distfile is found, pkgsrc will try to resume it.
 
-You can also use a different program than the default ftp(1) by changing the
-FETCH_USING variable. You can specify the program by using of ftp, fetch, wget
-or curl. Alternatively, fetching can be disabled by using the value manual. A
-value of custom disables the system defaults and dependency tracking for the
-fetch program. In that case you have to provide FETCH_CMD, FETCH_BEFORE_ARGS,
-FETCH_RESUME_ARGS, FETCH_OUTPUT_ARGS, FETCH_AFTER_ARGS.
+You can also use a different program than the platform default program by
+changing the FETCH_USING variable. You can specify the program by using of ftp,
+fetch, wget or curl. Alternatively, fetching can be disabled by using the value
+manual. A value of custom disables the system defaults and dependency tracking
+for the fetch program. In that case you have to provide FETCH_CMD,
+FETCH_BEFORE_ARGS, FETCH_RESUME_ARGS, FETCH_OUTPUT_ARGS, FETCH_AFTER_ARGS.
 
 For example, if you want to use wget to download, you'll have to use something
 like:
