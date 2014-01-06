@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.993 2013/12/15 22:24:06 pettai Exp $
+# $NetBSD: Makefile,v 1.996 2013/12/31 19:57:16 rodent Exp $
 #
 
 COMMENT=	Networking tools
@@ -25,7 +25,6 @@ SUBDIR+=	aoe-vblade
 SUBDIR+=	apollo
 SUBDIR+=	argus
 SUBDIR+=	aria2
-SUBDIR+=	arla
 SUBDIR+=	arp-scan
 SUBDIR+=	arpd
 SUBDIR+=	arping
@@ -537,6 +536,7 @@ SUBDIR+=	py-IP
 SUBDIR+=	py-METAR
 SUBDIR+=	py-ORBit
 SUBDIR+=	py-adns
+SUBDIR+=	py-amqp
 SUBDIR+=	py-boto
 SUBDIR+=	py-dns
 SUBDIR+=	py-dpkt
@@ -558,6 +558,7 @@ SUBDIR+=	py-s3cmd
 SUBDIR+=	py-smb
 SUBDIR+=	py-soaplib
 SUBDIR+=	py-soappy
+SUBDIR+=	py-socketpool
 SUBDIR+=	py-spreadmodule
 SUBDIR+=	py-suds
 SUBDIR+=	py-twisted
