@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.723 2013/12/19 04:15:52 jnemeth Exp $
+# $NetBSD: Makefile,v 1.725 2014/01/01 08:58:18 obache Exp $
 #
 
 COMMENT=	Packages to support the X window system
@@ -48,7 +48,6 @@ SUBDIR+=	ede
 SUBDIR+=	editres
 SUBDIR+=	eekboard
 SUBDIR+=	efltk
-SUBDIR+=	egtk
 SUBDIR+=	elementary
 SUBDIR+=	elementary-icon-theme
 SUBDIR+=	enlightenment
@@ -548,7 +547,6 @@ SUBDIR+=	xf86-video-mga
 SUBDIR+=	xf86-video-neomagic
 SUBDIR+=	xf86-video-newport
 SUBDIR+=	xf86-video-nv
-SUBDIR+=	xf86-video-nvxbox
 SUBDIR+=	xf86-video-openchrome
 SUBDIR+=	xf86-video-r128
 SUBDIR+=	xf86-video-rendition
