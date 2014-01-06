@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.57 2013/07/25 11:51:59 wiz Exp $
+# $NetBSD: Makefile,v 1.59 2014/01/02 15:56:11 richard Exp $
 
-DISTNAME=	libgcrypt-1.5.3
+DISTNAME=	libgcrypt-1.6.0
 CATEGORIES=	security
 MASTER_SITES=	ftp://ftp.gnupg.org/gcrypt/libgcrypt/ \
 		http://gd.tuwien.ac.at/privacy/gnupg/libgcrypt/
@@ -23,6 +23,8 @@ TEXINFO_REQD=		4.0
 INFO_FILES=		yes # PLIST
 
 .include "../../mk/bsd.prefs.mk"
+
+CPPFLAGS.SunOS+=	-Wa,--divide
 
 .if empty(MACHINE_PLATFORM:MNetBSD-*-i386) && \
     empty(MACHINE_PLATFORM:MNetBSD-*-alpha) && \
