@@ -1,10 +1,9 @@
-# $NetBSD: Makefile,v 1.77 2013/10/10 14:42:34 ryoon Exp $
-#
+# $NetBSD: Makefile,v 1.79 2014/01/05 21:46:55 wiz Exp $
 
-DISTNAME=		sawfish-1.7.1
-PKGREVISION=		16
+DISTNAME=		sawfish-1.10
+PKGREVISION=		1
 CATEGORIES=		x11 wm
-MASTER_SITES=		http://download.tuxfamily.org/sawfish/sawfish/
+MASTER_SITES=		http://download.tuxfamily.org/sawfish/
 EXTRACT_SUFX=		.tar.bz2
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
@@ -43,6 +42,7 @@ REP_ENV_PKGSRC=
 .endif
 
 .include "../../graphics/gdk-pixbuf2-xlib/buildlink3.mk"
+.include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../devel/pango/buildlink3.mk"
 .include "../../devel/pangox-compat/buildlink3.mk"
 .include "../../lang/librep/buildlink3.mk"
@@ -50,5 +50,6 @@ REP_ENV_PKGSRC=
 .include "../../x11/gtk2/buildlink3.mk"
 BUILDLINK_DEPMETHOD.libXt+=	build
 .include "../../x11/libXt/buildlink3.mk"
+.include "../../x11/libXtst/buildlink3.mk"
 .include "../../x11/rep-gtk2/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

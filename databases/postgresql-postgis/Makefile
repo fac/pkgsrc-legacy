@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.15 2013/05/31 12:39:55 wiz Exp $
+# $NetBSD: Makefile,v 1.16 2014/01/02 15:41:03 jperkin Exp $
 
 DISTNAME=	postgis-1.5.3
 PKGNAME=	postgresql${PGSQL_VERSION}-${DISTNAME}
