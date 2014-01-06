@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.1007 2013/12/16 01:47:57 taca Exp $
+# $NetBSD: Makefile,v 1.1012 2014/01/05 17:48:12 rodent Exp $
 #
 
 COMMENT=	Packages related to the World Wide Web
@@ -551,6 +551,7 @@ SUBDIR+=	php-sugarcrm
 SUBDIR+=	php-tidy
 SUBDIR+=	php-tiki6
 SUBDIR+=	php-tt-rss
+SUBDIR+=	php-tt-rss-fever-plugin
 SUBDIR+=	php-uploadprogress
 SUBDIR+=	php-zendoptimizerplus
 SUBDIR+=	phraseanet
@@ -591,6 +592,7 @@ SUBDIR+=	py-flask
 SUBDIR+=	py-flask-admin
 SUBDIR+=	py-flask-assets
 SUBDIR+=	py-flask-babelex
+SUBDIR+=	py-flask-bootstrap
 SUBDIR+=	py-flask-cache
 SUBDIR+=	py-flask-flatpages
 SUBDIR+=	py-flask-frozen
@@ -606,6 +608,7 @@ SUBDIR+=	py-flask-wtf
 SUBDIR+=	py-flup
 SUBDIR+=	py-gdata
 SUBDIR+=	py-genshi
+SUBDIR+=	py-http-parser
 SUBDIR+=	py-httplib2
 SUBDIR+=	py-jonpy
 SUBDIR+=	py-mechanize
@@ -621,7 +624,9 @@ SUBDIR+=	py-scgi
 SUBDIR+=	py-simpletal
 SUBDIR+=	py-swish-e
 SUBDIR+=	py-tornado
+SUBDIR+=	py-uliweb
 SUBDIR+=	py-uwsgi
+SUBDIR+=	py-uwsgitop
 SUBDIR+=	py-webassets
 SUBDIR+=	py-webcolors
 SUBDIR+=	py-webpy
