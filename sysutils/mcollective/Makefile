@@ -50,6 +50,9 @@ SUBST_FILES.sharepath=	${WRKSRC}/etc/server.cfg.dist		\
 SUBST_SED.sharepath=	-e "s,/usr/libexec/mcollective,${PREFIX}/share,"
 SUBST_STAGE.sharepath=	post-patch
 
+
+CHECK_INTERPRETER_SKIP+=share/mcollective/*
+
 do-install:
 	${INSTALL_SCRIPT} ${WRKSRC}/bin/mcollectived ${DESTDIR}${PREFIX}/sbin
 	${INSTALL_SCRIPT} ${WRKSRC}/bin/mco ${DESTDIR}${PREFIX}/bin
