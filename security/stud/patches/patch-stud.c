@@ -1,9 +1,10 @@
-$NetBSD: patch-stud.c,v 1.1 2013/03/16 19:41:36 jym Exp $
+$NetBSD$
 
-SunOS fixes as per https://github.com/bumptech/stud/pull/71
-SSL fixes as per https://github.com/bumptech/stud/pull/138
+SunOS fixes as per https://github.com/bumptech/stud/pull/71.
+SSL fixes as per https://github.com/bumptech/stud/pull/130.
+TLS fixes as per https://github.com/bumptech/stud/pull/138
 
---- stud.c.orig        2012-08-15 10:33:39.000000000 +0000
+--- stud.c.orig	2012-08-10 23:40:19.000000000 +0000
 +++ stud.c
 @@ -189,9 +189,17 @@ typedef struct proxystate {
  
@@ -58,7 +59,47 @@ SSL fixes as per https://github.com/bumptech/stud/pull/138
      SSL_CTX_set_options(ctx, ssloptions);
      SSL_CTX_set_info_callback(ctx, info_callback);
  
-@@ -1751,24 +1757,16 @@ void daemonize () {
+@@ -889,6 +895,13 @@ static void shutdown_proxy(proxystate *p
+         close(ps->fd_up);
+         close(ps->fd_down);
+ 
++        // Clear the SSL error queue - it might contain details
++        // of errors that we haven't consumed for whatever reason.
++        // If we don't, future calls to SSL_get_error will lead to 
++        // weird/confusing results that can throw off the handling
++        // of normal conditions like SSL_ERROR_WANT_READ.
++        ERR_clear_error();
++
+         SSL_set_shutdown(ps->ssl, SSL_SENT_SHUTDOWN);
+         SSL_free(ps->ssl);
+ 
+@@ -1197,7 +1210,15 @@ static void client_handshake(struct ev_l
+             shutdown_proxy(ps, SHUTDOWN_SSL);
+         }
+         else {
+-            LOG("{%s} Unexpected SSL error (in handshake): %d\n", w->fd == ps->fd_up ? "client" : "backend", err);
++
++            // Try and get more detail on the error from the SSL
++            // error queue. ERR_error_string requires a char buffer
++            // of 120 bytes.
++            unsigned long err_detail = ERR_get_error();
++            char err_msg[120];
++            ERR_error_string(err_detail, err_msg);
++
++            LOG("{client} Unexpected SSL error (in handshake): %d, %s\n", err, err_msg);
+             shutdown_proxy(ps, SHUTDOWN_SSL);
+         }
+     }
+@@ -1312,7 +1333,7 @@ static void handle_accept(struct ev_loop
+             break;
+ 
+         default:
+-            assert(errno == EINTR || errno == EWOULDBLOCK || errno == EAGAIN);
++            assert(errno == EINTR || errno == EWOULDBLOCK || errno == EAGAIN || errno == ECONNABORTED);
+             break;
+         }
+         return;
+@@ -1751,24 +1772,16 @@ void daemonize () {
          exit(0);
      }
  
