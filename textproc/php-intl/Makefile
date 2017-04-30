@@ -6,6 +6,7 @@ COMMENT=		PHP extension for i18n
 PKGREVISION=		1
 LICENSE=		php
 
+CXXFLAGS+=		-std=c++11
 USE_LANGUAGES=		c c++
 CONFIGURE_ARGS+=	--enable-${MODNAME}=shared,${BUILDLINK_DIR}
 
