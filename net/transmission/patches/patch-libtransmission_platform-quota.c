@@ -1,4 +1,4 @@
-$NetBSD: patch-libtransmission_platform-quota.c,v 1.4 2017/06/19 13:21:35 maya Exp $
+$NetBSD: patch-libtransmission_platform-quota.c,v 1.5 2017/06/19 13:33:46 maya Exp $
 
 Fix dragonflybsd build
 
@@ -31,3 +31,12 @@ Fix dragonflybsd build
    if (quotactl(device, QCMD(Q_GETQUOTA, USRQUOTA), getuid(), (caddr_t) &dq) == 0)
      {
  #elif defined(__sun)
+@@ -281,7 +287,7 @@ getquota (const char * device)
+           /* No quota enabled for this user */
+           return -1;
+         }
+-#if defined(__FreeBSD__) || defined(__OpenBSD__)
++#if defined(__FreeBSD__) || defined(__DragonFly__) || defined(__OpenBSD__)
+       spaceused = (int64_t) dq.dqb_curblocks >> 1;
+ #elif defined(__APPLE__)
+       spaceused = (int64_t) dq.dqb_curbytes;
