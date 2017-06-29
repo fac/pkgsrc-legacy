@@ -709,13 +709,6 @@ share/doc/samba/WinXP_PlainPassword.reg
 share/doc/samba/WindowsTerminalServer.reg
 share/examples/samba/adduser.sh
 share/examples/samba/deluser.sh
-<<<<<<< HEAD
-${PLIST.pam}share/examples/samba/pam_smbpass/kdc-pdc
-${PLIST.pam}share/examples/samba/pam_smbpass/password-mature
-${PLIST.pam}share/examples/samba/pam_smbpass/password-migration
-${PLIST.pam}share/examples/samba/pam_smbpass/password-sync
-=======
->>>>>>> 86612135bdb1... Update to 4.6.2
 share/examples/samba/samba.schema
 share/examples/samba/smb.conf.default
 share/samba/setup/DB_CONFIG
