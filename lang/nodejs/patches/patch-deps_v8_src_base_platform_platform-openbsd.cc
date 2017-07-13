@@ -1,4 +1,4 @@
-$NetBSD: patch-deps_v8_src_base_platform_platform-openbsd.cc,v 1.1 2015/10/21 23:46:28 jmcneill Exp $
+$NetBSD: patch-deps_v8_src_base_platform_platform-openbsd.cc,v 1.1 2016/10/25 19:54:00 fhajny Exp $
 
 --- deps/v8/src/base/platform/platform-openbsd.cc.orig	2015-10-13 17:20:07.000000000 +0000
 +++ deps/v8/src/base/platform/platform-openbsd.cc

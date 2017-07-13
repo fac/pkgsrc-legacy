@@ -1,4 +1,4 @@
-$NetBSD: patch-deps_uv_src_unix_netbsd.c,v 1.4 2016/04/13 09:37:35 ryoon Exp $
+$NetBSD: patch-deps_uv_src_unix_netbsd.c,v 1.1 2016/10/25 19:54:00 fhajny Exp $
 
 --- deps/uv/src/unix/netbsd.c.orig	2016-04-05 21:52:30.000000000 +0000
 +++ deps/uv/src/unix/netbsd.c

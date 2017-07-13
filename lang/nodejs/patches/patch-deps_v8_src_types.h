@@ -1,4 +1,4 @@
-$NetBSD: patch-deps_v8_src_types.h,v 1.3 2016/06/02 09:57:32 fhajny Exp $
+$NetBSD: patch-deps_v8_src_types.h,v 1.1 2016/10/25 19:54:00 fhajny Exp $
 
 NetBSD 6 doesn't have nearbyint/nearbyintf.
 

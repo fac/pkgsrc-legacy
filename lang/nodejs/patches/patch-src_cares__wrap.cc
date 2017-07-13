@@ -1,4 +1,4 @@
-$NetBSD: patch-src_cares__wrap.cc,v 1.1 2015/04/30 15:04:56 ryoon Exp $
+$NetBSD: patch-src_cares__wrap.cc,v 1.1 2016/10/25 19:54:00 fhajny Exp $
 
 NetBSD has no AI_V4MAPPED.
 

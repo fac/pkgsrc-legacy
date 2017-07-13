@@ -1,4 +1,4 @@
-$NetBSD: patch-deps_v8_src_log-utils.h,v 1.1 2015/11/09 20:19:35 fhajny Exp $
+$NetBSD: patch-deps_v8_src_log-utils.h,v 1.1 2016/10/25 19:54:00 fhajny Exp $
 
 Need stdarg.h for va_list.
 

@@ -1,4 +1,4 @@
-$NetBSD: patch-deps_v8_src_base_atomicops.h,v 1.1 2015/10/21 23:46:28 jmcneill Exp $
+$NetBSD: patch-deps_v8_src_base_atomicops.h,v 1.1 2016/10/25 19:54:00 fhajny Exp $
 
 --- deps/v8/src/base/atomicops.h.orig	2015-10-13 17:20:07.000000000 +0000
 +++ deps/v8/src/base/atomicops.h

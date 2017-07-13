@@ -1,4 +1,4 @@
-$NetBSD: patch-deps_v8_src_base_atomicops__internals__arm__gcc.h,v 1.2 2016/09/13 10:10:42 fhajny Exp $
+$NetBSD: patch-deps_v8_src_base_atomicops__internals__arm__gcc.h,v 1.1 2016/10/25 19:54:00 fhajny Exp $
 
 --- deps/v8/src/base/atomicops_internals_arm_gcc.h.orig	2016-08-26 15:27:18.000000000 +0000
 +++ deps/v8/src/base/atomicops_internals_arm_gcc.h

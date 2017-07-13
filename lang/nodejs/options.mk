@@ -1,4 +1,4 @@
-# $NetBSD: options.mk,v 1.10 2016/06/02 09:57:32 fhajny Exp $
+# $NetBSD: options.mk,v 1.1 2016/10/25 19:54:00 fhajny Exp $
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.node
 PKG_SUPPORTED_OPTIONS=	openssl dtrace
@@ -11,11 +11,11 @@ PKG_SUGGESTED_OPTIONS+=	dtrace
 
 .include "../../mk/bsd.options.mk"
 
-PLIST_VARS+=	dtrace
+PLIST_VARS+=		dtrace
 
 .if !empty(PKG_OPTIONS:Mdtrace)
 CONFIGURE_ARGS+=	--with-dtrace
-PLIST.dtrace=	yes
+PLIST.dtrace=		yes
 .else
 CONFIGURE_ARGS+=	--without-dtrace
 .endif
@@ -31,8 +31,4 @@ _WRAP_EXTRA_ARGS.CXX+=	${COMPILER_RPATH_FLAG}${BUILDLINK_PREFIX.openssl}/lib
 CWRAPPERS_APPEND.cxx+=	${COMPILER_RPATH_FLAG}${BUILDLINK_PREFIX.openssl}/lib
 .else
 CONFIGURE_ARGS+=	--without-ssl
-.endif
-
-.if empty(PKG_OPTIONS:Msnapshot)
-CONFIGURE_ARGS+=	--without-snapshot
 .endif

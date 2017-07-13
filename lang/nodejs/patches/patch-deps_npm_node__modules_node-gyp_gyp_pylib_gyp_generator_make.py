@@ -1,4 +1,4 @@
-$NetBSD: patch-deps_npm_node__modules_node-gyp_gyp_pylib_gyp_generator_make.py,v 1.1 2013/06/26 11:53:02 jperkin Exp $
+$NetBSD: patch-deps_npm_node__modules_node-gyp_gyp_pylib_gyp_generator_make.py,v 1.1 2016/10/25 19:54:00 fhajny Exp $
 
 Ensure we use the system libtool on OSX.
 
