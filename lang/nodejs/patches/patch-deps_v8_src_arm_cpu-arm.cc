@@ -1,4 +1,4 @@
-$NetBSD: patch-deps_v8_src_arm_cpu-arm.cc,v 1.2 2016/04/27 15:03:10 fhajny Exp $
+$NetBSD: patch-deps_v8_src_arm_cpu-arm.cc,v 1.1 2016/10/25 19:54:00 fhajny Exp $
 
 --- deps/v8/src/arm/cpu-arm.cc.orig	2016-04-26 19:50:10.000000000 +0000
 +++ deps/v8/src/arm/cpu-arm.cc

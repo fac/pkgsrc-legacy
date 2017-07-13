@@ -1,4 +1,4 @@
-$NetBSD: patch-src_node.cc,v 1.1 2016/05/27 23:30:51 fhajny Exp $
+$NetBSD: patch-src_node.cc,v 1.1 2016/10/25 19:54:00 fhajny Exp $
 
 Handle NetBSD the same way as FreeBSD.
 
