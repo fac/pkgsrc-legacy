@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.42 2016/10/27 13:06:42 ryoon Exp $
+# $NetBSD: Makefile,v 1.51 2017/09/02 04:13:41 ryoon Exp $
 
-DISTNAME=	openjdk-1.8.112-20161027
-PKGNAME=	openjdk8-1.8.112
+DISTNAME=	openjdk-1.8.144-20170830
+PKGNAME=	openjdk8-1.8.144
 CATEGORIES=	lang
 MASTER_SITES=	${MASTER_SITE_LOCAL:=openjdk7/}
 EXTRACT_SUFX=	.tar.xz
@@ -19,8 +19,8 @@ DIST_SUBDIR=	openjdk7
 
 JAVA_NAME=	openjdk8
 JAVA_HOME=	${PREFIX}/java/${JAVA_NAME}
-JAVA_WRAPPERS=	jar java javac javadoc javah javap jps keytool orbd \
-		policytool rmid rmiregistry servertool tnameserv
+JAVA_WRAPPERS=	jar java javac javadoc javah javap jcmd jps jstack keytool \
+		orbd policytool rmid rmiregistry servertool tnameserv
 
 BUILD_DEPENDS+=		mozilla-rootcerts>=1.0.20140820nb2:../../security/mozilla-rootcerts
 
@@ -59,8 +59,16 @@ CONFIGURE_ARGS+=	--disable-precompiled-headers
 CONFIGURE_ARGS+=	--disable-ccache
 CONFIGURE_ARGS+=	--with-user-release-suffix=pkgsrc_${PKGVERSION}
 CONFIGURE_ARGS+=	--with-update-version=${PKGVERSION_NOREV:S/1.8.//}
+CONFIGURE_ARGS+=	--with-extra-ldflags=${LDFLAGS:Q}
 
 CHECK_PORTABILITY_SKIP+=	hotspot/test/runtime/*/*.sh
+
+NOT_PAX_MPROTECT_SAFE+= java/openjdk8/bin/[a-ik-z]*
+NOT_PAX_MPROTECT_SAFE+= java/openjdk8/bin/j[b-z]*
+NOT_PAX_MPROTECT_SAFE+= java/openjdk8/bin/jar*
+NOT_PAX_MPROTECT_SAFE+= java/openjdk8/bin/java
+NOT_PAX_MPROTECT_SAFE+= java/openjdk8/bin/java[a-z]*
+NOT_PAX_MPROTECT_SAFE+= java/openjdk8/jre/bin/*
 
 # Avoid build errors when JAVA_HOME and CLASSPATH are defined by user.
 MAKE_ENV+=	JAVA_HOME=
@@ -73,6 +81,8 @@ BUILDDIR=	${WRKSRC}/build/${BUILD_OPSYS}-${BUILD_ARCH}-normal-${BUILD_VARIANT}-$
 LD_LIBRARY_PATH=	${WRKDIR}/bootstrap/jre/lib/${LIBDIR_ARCH}:${WRKDIR}/bootstrap/jre/lib/${LIBDIR_ARCH}/jli:${WRKDIR}/bootstrap/jre/lib/${LIBDIR_ARCH}/server
 CONFIGURE_ENV+=	LD_LIBRARY_PATH=${LD_LIBRARY_PATH}
 MAKE_ENV+=	LD_LIBRARY_PATH=${LD_LIBRARY_PATH}
+CONFIGURE_ENV+=	LFLAGS=${LDFLAGS:Q}
+MAKE_ENV+=	LFLAGS=${LDFLAGS:Q}
 BUILDLINK_PASSTHRU_RPATHDIRS+=	${PREFIX}/java/openjdk8/jre/lib/${LIBDIR_ARCH}
 
 PLIST_SUBST+=	ARCH=${LIBDIR_ARCH}
@@ -138,7 +148,9 @@ SUBST_SED.fontpaths+=		-e 's|@BUILDLINK_PREFIX.fontconfig@|${BUILDLINK_PREFIX.fo
 SUBST_CLASSES+=			zlibpath
 SUBST_STAGE.zlibpath=		pre-build
 SUBST_FILES.zlibpath=		jdk/make/CompileLaunchers.gmk jdk/make/lib/CoreLibraries.gmk
+SUBST_FILES.zlibpath+=		jdk/make/lib/Awt2dLibraries.gmk jdk/make/lib/ServiceabilityLibraries.gmk
 SUBST_VARS.zlibpath=		COMPILER_RPATH_FLAG BUILDLINK_PREFIX.zlib
+SUBST_VARS.zlibpath+=		BUILDLINK_PREFIX.iconv
 
 PLIST_VARS+=	i386
 .if ${MACHINE_ARCH} == "i386"
@@ -159,6 +171,13 @@ post-extract:
 .if exists(/usr/lib/libstdc++.so.7)
 	${RM} -f ${ALT_BOOTDIR}/jre/lib/${LIBDIR_ARCH}/libstdc++.so*
 .endif
+.if defined(TOOLS_PLATFORM.paxctl)
+	${PAXCTL} +m ${WRKDIR}/bootstrap/bin/[a-ik-z]*
+	${PAXCTL} +m ${WRKDIR}/bootstrap/bin/j[b-z]*
+	${PAXCTL} +m ${WRKDIR}/bootstrap/bin/jar*
+	${PAXCTL} +m ${WRKDIR}/bootstrap/bin/java
+	${PAXCTL} +m ${WRKDIR}/bootstrap/bin/java[a-z]*
+.endif
 
 do-build: ${WRKDIR}/stage3-done
 
@@ -174,6 +193,13 @@ ${WRKDIR}/stage1-done:
 
 # stage 1.5 reconfigures, since the bootstrap JDK major version might have changed now
 ${WRKDIR}/stage1_5-done: ${WRKDIR}/stage1-done
+.if defined(TOOLS_PLATFORM.paxctl)
+	${PAXCTL} +m ${WRKDIR}/bootstrap/bin/[a-ik-z]*
+	${PAXCTL} +m ${WRKDIR}/bootstrap/bin/j[b-z]*
+	${PAXCTL} +m ${WRKDIR}/bootstrap/bin/jar*
+	${PAXCTL} +m ${WRKDIR}/bootstrap/bin/java
+	${PAXCTL} +m ${WRKDIR}/bootstrap/bin/java[a-z]*
+.endif
 .if defined(BATCH)
 	@${RECURSIVE_MAKE} ${MAKEFLAGS} apply-va-hack
 .endif
