@@ -464,6 +464,7 @@ SUBDIR+=	libhfs
 SUBDIR+=	libhid
 SUBDIR+=	libiberty
 SUBDIR+=	libidn
+SUBDIR+=	libidn2
 SUBDIR+=	libinotify
 SUBDIR+=	libixp
 SUBDIR+=	libjit
