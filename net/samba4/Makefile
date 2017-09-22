@@ -119,7 +119,7 @@ PLIST_VARS+=		macosx
 PLIST.macosx=		yes
 .endif
 
-.if ${SHLIB_TYPE} == "dylib"
+.if ${_OPSYS_SHLIB_TYPE} == "dylib"
 PLIST_SUBST+=	LIBEXT=dylib
 SAMBA_LIBEXT=	dylib
 .else
