@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.84 2015/06/07 09:13:11 wiz Exp $
+@comment $NetBSD: PLIST,v 1.5 2017/10/30 15:08:13 fhajny Exp $
 bin/Magick++-config
 bin/Magick-config
 bin/MagickCore-config
@@ -149,6 +149,7 @@ include/ImageMagick-6/wand/pixel-iterator.h
 include/ImageMagick-6/wand/pixel-wand.h
 include/ImageMagick-6/wand/stream.h
 include/ImageMagick-6/wand/wand-view.h
+lib/ImageMagick-6.9.9/config-Q16/configure.xml
 lib/libMagick++-6.Q16.la
 lib/libMagickCore-6.Q16.la
 lib/libMagickWand-6.Q16.la
@@ -189,7 +190,9 @@ share/doc/ImageMagick-6/LICENSE
 share/doc/ImageMagick-6/NEWS.txt
 share/doc/ImageMagick-6/images/ImageMagick.ico
 share/doc/ImageMagick-6/images/affine.png
+share/doc/ImageMagick-6/images/annotate.png
 share/doc/ImageMagick-6/images/arc.png
+share/doc/ImageMagick-6/images/atop.gif
 share/doc/ImageMagick-6/images/background.jpg
 share/doc/ImageMagick-6/images/black.png
 share/doc/ImageMagick-6/images/bluebells_clipped.jpg
@@ -200,6 +203,7 @@ share/doc/ImageMagick-6/images/button.gif
 share/doc/ImageMagick-6/images/configure.jpg
 share/doc/ImageMagick-6/images/cylinder_shaded.png
 share/doc/ImageMagick-6/images/difference.png
+share/doc/ImageMagick-6/images/donate.png
 share/doc/ImageMagick-6/images/examples.jpg
 share/doc/ImageMagick-6/images/frame.jpg
 share/doc/ImageMagick-6/images/fuzzy-magick.png
@@ -215,9 +219,11 @@ share/doc/ImageMagick-6/images/logo.jpg
 share/doc/ImageMagick-6/images/logo.png
 share/doc/ImageMagick-6/images/montage.jpg
 share/doc/ImageMagick-6/images/navy.png
+share/doc/ImageMagick-6/images/networkredux.png
 share/doc/ImageMagick-6/images/objects.gif
 share/doc/ImageMagick-6/images/objects.jpg
 share/doc/ImageMagick-6/images/objects.png
+share/doc/ImageMagick-6/images/over.gif
 share/doc/ImageMagick-6/images/patterns/bricks.png
 share/doc/ImageMagick-6/images/patterns/checkerboard.png
 share/doc/ImageMagick-6/images/patterns/circles.png
@@ -288,6 +294,7 @@ share/doc/ImageMagick-6/images/smile.gif
 share/doc/ImageMagick-6/images/sponsor.jpg
 share/doc/ImageMagick-6/images/sprite.jpg
 share/doc/ImageMagick-6/images/t-shirt.png
+share/doc/ImageMagick-6/images/transloadit.png
 share/doc/ImageMagick-6/images/wand.ico
 share/doc/ImageMagick-6/images/wand.png
 share/doc/ImageMagick-6/images/white-highlight.png
@@ -310,6 +317,7 @@ share/doc/ImageMagick-6/www/Magick++/Exception.html
 share/doc/ImageMagick-6/www/Magick++/FormatCharacters.html
 share/doc/ImageMagick-6/www/Magick++/Future.html
 share/doc/ImageMagick-6/www/Magick++/Geometry.html
+share/doc/ImageMagick-6/www/Magick++/Image++.html
 share/doc/ImageMagick-6/www/Magick++/Image.fig
 share/doc/ImageMagick-6/www/Magick++/Image.html
 share/doc/ImageMagick-6/www/Magick++/Image.png
@@ -338,6 +346,7 @@ share/doc/ImageMagick-6/www/advanced-unix-installation.html
 share/doc/ImageMagick-6/www/advanced-windows-installation.html
 share/doc/ImageMagick-6/www/animate.html
 share/doc/ImageMagick-6/www/api.html
+share/doc/ImageMagick-6/www/api/Image++.html
 share/doc/ImageMagick-6/www/api/MagickCore/ImageMagick_8h-source.html
 share/doc/ImageMagick-6/www/api/MagickCore/ImageMagick_8h.html
 share/doc/ImageMagick-6/www/api/MagickCore/MagickCore_8h-source.html
@@ -1078,6 +1087,7 @@ share/doc/ImageMagick-6/www/api/image-view.html
 share/doc/ImageMagick-6/www/api/image.html
 share/doc/ImageMagick-6/www/api/layer.html
 share/doc/ImageMagick-6/www/api/list.html
+share/doc/ImageMagick-6/www/api/magick++-classes.html
 share/doc/ImageMagick-6/www/api/magick-deprecate.html
 share/doc/ImageMagick-6/www/api/magick-image.html
 share/doc/ImageMagick-6/www/api/magick-property.html
@@ -1123,7 +1133,9 @@ share/doc/ImageMagick-6/www/conjure.html
 share/doc/ImageMagick-6/www/connected-components.html
 share/doc/ImageMagick-6/www/contact.html
 share/doc/ImageMagick-6/www/convert.html
+share/doc/ImageMagick-6/www/css/README.txt
 share/doc/ImageMagick-6/www/css/magick.css
+share/doc/ImageMagick-6/www/develop.html
 share/doc/ImageMagick-6/www/display.html
 share/doc/ImageMagick-6/www/distribute-pixel-cache.html
 share/doc/ImageMagick-6/www/download.html
@@ -1134,6 +1146,7 @@ share/doc/ImageMagick-6/www/export.html
 share/doc/ImageMagick-6/www/favicon.ico
 share/doc/ImageMagick-6/www/formats.html
 share/doc/ImageMagick-6/www/fx.html
+share/doc/ImageMagick-6/www/gradient.html
 share/doc/ImageMagick-6/www/high-dynamic-range.html
 share/doc/ImageMagick-6/www/history.html
 share/doc/ImageMagick-6/www/identify.html
@@ -1141,22 +1154,29 @@ share/doc/ImageMagick-6/www/import.html
 share/doc/ImageMagick-6/www/index.html
 share/doc/ImageMagick-6/www/install-source.html
 share/doc/ImageMagick-6/www/jp2.html
+share/doc/ImageMagick-6/www/js/README.txt
+share/doc/ImageMagick-6/www/js/magick.js
 share/doc/ImageMagick-6/www/license.html
 share/doc/ImageMagick-6/www/links.html
 share/doc/ImageMagick-6/www/magick++.html
 share/doc/ImageMagick-6/www/magick-core.html
+share/doc/ImageMagick-6/www/magick-script.html
 share/doc/ImageMagick-6/www/magick-vector-graphics.html
 share/doc/ImageMagick-6/www/magick-wand.html
+share/doc/ImageMagick-6/www/magick.html
 share/doc/ImageMagick-6/www/miff.html
+share/doc/ImageMagick-6/www/mirror.html
 share/doc/ImageMagick-6/www/mogrify.html
 share/doc/ImageMagick-6/www/montage.html
 share/doc/ImageMagick-6/www/motion-picture.html
+share/doc/ImageMagick-6/www/opencl.html
 share/doc/ImageMagick-6/www/openmp.html
 share/doc/ImageMagick-6/www/perl-magick.html
 share/doc/ImageMagick-6/www/porting.html
 share/doc/ImageMagick-6/www/quantize.html
 share/doc/ImageMagick-6/www/resources.html
 share/doc/ImageMagick-6/www/search.html
+share/doc/ImageMagick-6/www/security-policy.html
 share/doc/ImageMagick-6/www/sitemap.html
 share/doc/ImageMagick-6/www/source/analyze.c
 share/doc/ImageMagick-6/www/source/coder.xml
@@ -1194,8 +1214,10 @@ share/examples/ImageMagick/mime.xml
 share/examples/ImageMagick/policy.xml
 share/examples/ImageMagick/quantization-table.xml
 share/examples/ImageMagick/thresholds.xml
+share/examples/ImageMagick/type-apple.xml
 share/examples/ImageMagick/type-dejavu.xml
 share/examples/ImageMagick/type-ghostscript.xml
+share/examples/ImageMagick/type-urw-base35.xml
 share/examples/ImageMagick/type-windows.xml
 share/examples/ImageMagick/type.xml
 lib/ImageMagick-6.9.9/config-Q16/configure.xml
