@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.70 2015/09/25 17:05:33 tnn Exp $
+# $NetBSD: Makefile,v 1.76 2017/08/16 19:59:50 wiz Exp $
 
-DISTNAME=	binutils-2.25.1
+DISTNAME=	binutils-2.26.1
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_GNU:=binutils/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://directory.fsf.org/project/binutils/
+HOMEPAGE=	https://www.gnu.org/software/binutils/
 COMMENT=	GNU binary utilities
 LICENSE=	gnu-gpl-v2 AND gnu-gpl-v3 AND gnu-lgpl-v2 AND gnu-lgpl-v3
 EXTRACT_SUFX=	.tar.bz2
@@ -33,7 +33,6 @@ CONFIG_SHELL=		ksh
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--with-lib-path='/lib:/usr/lib'
 CONFIGURE_ARGS+=	--program-prefix=g
-CONFIGURE_ARGS+=	--without-zlib
 BINUTILS_PREFIX=	${PREFIX}/${MACHINE_GNU_PLATFORM}
 
 PLIST_SRC=	${PKGDIR}/PLIST.common
@@ -49,7 +48,7 @@ PLIST_VARS+=	gprof ld gold SunOS
 
 .include "../../mk/bsd.prefs.mk"
 
-.if ${OPSYS} != IRIX
+.if ${OPSYS} != "IRIX" && ${OPSYS} != "AIX"
 PLIST.gprof=	yes
 EXTRA_FILES+=	gprof
 .endif
