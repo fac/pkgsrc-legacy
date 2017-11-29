@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.173 2016/11/02 07:09:38 maya Exp $
+# $NetBSD: Makefile,v 1.189 2017/10/23 06:59:36 adam Exp $
 
-DISTNAME=	curl-7.51.0
+DISTNAME=	curl-7.56.1
 CATEGORIES=	www
 MASTER_SITES=	https://curl.haxx.se/download/
 EXTRACT_SUFX=	.tar.bz2
@@ -38,6 +38,7 @@ post-install:
 	${INSTALL_DATA} ${WRKSRC}/docs/${f} ${DESTDIR}${PREFIX}/share/doc/curl/
 .endfor
 
+.include "../../devel/gettext-lib/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
