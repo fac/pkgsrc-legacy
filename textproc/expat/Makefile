@@ -10,8 +10,8 @@ HOMEPAGE=	http://expat.sourceforge.net/
 COMMENT=	XML parser library written in C
 LICENSE=	mit
 
-GNU_CONFIGURE=		YES
-USE_LIBTOOL=		YES
+GNU_CONFIGURE=		yes
+USE_LIBTOOL=		yes
 USE_MULTIARCH=		lib
 
 # C++ is needed for tests only
