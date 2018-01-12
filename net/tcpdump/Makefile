@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.39 2015/10/17 10:08:22 adam Exp $
+# $NetBSD: Makefile,v 1.47 2017/09/08 11:10:41 wiz Exp $
 
-DISTNAME=	tcpdump-4.7.4
+DISTNAME=	tcpdump-4.9.2
 CATEGORIES=	net
 MASTER_SITES=	http://www.tcpdump.org/release/
 
@@ -10,9 +10,18 @@ COMMENT=	Network monitoring tool
 LICENSE=	modified-bsd
 
 GNU_CONFIGURE=		yes
+CONFIGURE_ARGS.Darwin+=	--disable-universal
+
+BUILD_DEFS+=		VARBASE
+OWN_DIRS=		${VARBASE}/tcpdump
+PKG_GROUPS=		_tcpdump
+PKG_USERS=		_tcpdump:_tcpdump
+
+# drop privileges when running
+CONFIGURE_ARGS+=	--with-user=_tcpdump
+CONFIGURE_ARGS+=	--with-chroot=${VARBASE}/tcpdump
 
 .include "options.mk"
 
 .include "../../net/libpcap/buildlink3.mk"
-.include "../../security/openssl/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

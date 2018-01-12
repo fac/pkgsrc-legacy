@@ -68,6 +68,23 @@ CONF_FILES+=		${EGDIR}/type-ghostscript.xml ${PKG_SYSCONFDIR}/type-ghostscript.x
 CONF_FILES+=		${EGDIR}/type-windows.xml ${PKG_SYSCONFDIR}/type-windows.xml
 CONF_FILES+=		${EGDIR}/type.xml ${PKG_SYSCONFDIR}/type.xml
 
+SUBST_CLASSES+=		pkgcfg
+SUBST_FILES.pkgcfg=	${PKGCONFIG_OVERRIDE} Magick++/bin/Magick++-config.in
+SUBST_FILES.pkgcfg+=	magick/Magick-config.in magick/MagickCore-config.in
+SUBST_FILES.pkgcfg+=	wand/MagickWand-config.in wand/Wand-config.in
+SUBST_MESSAGE.pkgcfg=	Fixing pkg-config requirements.
+SUBST_SED.pkgcfg=	-e 's|MagickCore-config |MagickCore-config6 |g'
+SUBST_SED.pkgcfg+=	-e 's|Wand-config|Wand-config6|g'
+SUBST_SED.pkgcfg+=	-e 's|s MagickWand|s MagickWand-6.Q16|g'
+SUBST_SED.pkgcfg+=	-e 's|s: MagickWand|s: MagickWand-6.Q16|g'
+SUBST_SED.pkgcfg+=	-e 's|s MagickCore|s MagickCore-6.Q16|g'
+SUBST_SED.pkgcfg+=	-e 's|s: MagickCore|s: MagickCore-6.Q16|g'
+SUBST_SED.pkgcfg+=	-e 's|Magick++-config|Magick++-config6|g'
+SUBST_SED.pkgcfg+=	-e 's|Magick-config |Magick-config6 |g'
+SUBST_SED.pkgcfg+=	-e 's|s Magick++|s Magick++-6.Q16|g'
+SUBST_SED.pkgcfg+=	-e 's|@PKG_CONFIG@|${PREFIX}/bin/pkg-config|g'
+SUBST_STAGE.pkgcfg=	pre-configure
+
 SUBST_CLASSES+=		fix-cfg
 SUBST_STAGE.fix-cfg=	pre-configure
 SUBST_MESSAGE.fix-cfg=	Fixing configure.xml.
