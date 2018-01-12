@@ -1,19 +1,23 @@
-# $NetBSD: Makefile,v 1.29 2015/08/04 08:47:19 tnn Exp $
-#
+# $NetBSD: Makefile,v 1.35 2017/09/08 07:55:17 wiz Exp $
 
-DISTNAME=	expat-2.1.0
-PKGREVISION=	1
+DISTNAME=	expat-2.2.4
 CATEGORIES=	textproc
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=expat/}
+EXTRACT_SUFX=	.tar.bz2
 
 MAINTAINER=	drochner@NetBSD.org
 HOMEPAGE=	http://expat.sourceforge.net/
 COMMENT=	XML parser library written in C
 LICENSE=	mit
 
-GNU_CONFIGURE=		YES
-USE_LIBTOOL=		YES
-USE_TOOLS+=		gmake
+GNU_CONFIGURE=		yes
+USE_LIBTOOL=		yes
+
+# C++ is needed for tests only
+#USE_LANGUAGES=		c c++
+#TEST_TARGET=		check
+#USE_TOOLS+=		bash
+#REPLACE_BASH=		test-driver-wrapper.sh
 
 PKGCONFIG_OVERRIDE+=	expat.pc.in
 

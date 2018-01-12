@@ -1,20 +1,21 @@
-# $NetBSD: Makefile,v 1.243 2016/03/15 20:54:07 bsiegert Exp $
+# $NetBSD: Makefile,v 1.254 2017/10/04 11:44:14 wiz Exp $
 
-DISTNAME=		openssh-7.2p2
-PKGNAME=		${DISTNAME:S/p2/.2/}
+DISTNAME=		openssh-7.6p1
+PKGNAME=		${DISTNAME:S/p1/.1/}
 CATEGORIES=		security
 MASTER_SITES=		${MASTER_SITE_OPENBSD:=OpenSSH/portable/}
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://www.openssh.com/
 COMMENT=		Open Source Secure shell client and server (remote login program)
+LICENSE=		modified-bsd
 
 CONFLICTS=		sftp-[0-9]*
 CONFLICTS+=		ssh-[0-9]* ssh6-[0-9]*
 CONFLICTS+=		ssh2-[0-9]* ssh2-nox11-[0-9]*
 CONFLICTS+=		openssh+gssapi-[0-9]*
 CONFLICTS+=		lsh>2.0
-BROKEN_FOR_PLATFORM+=	OpenBSD-*-*
+BROKEN_ON_PLATFORM+=	OpenBSD-*-*
 
 USE_GCC_RUNTIME=	yes
 USE_TOOLS+=		autoconf perl
@@ -33,26 +34,23 @@ INSTALL_TARGET=		install-nokeys
 
 .include "options.mk"
 
-.if ${OPSYS} == "Darwin"
 # fixes: dyld: Symbol not found: _allow_severity
-CONFIGURE_ARGS+=	--disable-strip
-.endif
-
-.if ${OPSYS} == "Interix"
+CONFIGURE_ARGS.Darwin+=	--disable-strip
 
 # OpenSSH on Interix has some important caveats
+.if ${OPSYS} == "Interix"
 MESSAGE_SRC=		${.CURDIR}/MESSAGE.Interix
 BUILDLINK_PASSTHRU_DIRS+= /usr/local/lib/bind
 CONFIGURE_ENV+=		ac_cv_func_openpty=no
 CONFIGURE_ENV+=		ac_cv_type_struct_timespec=yes
 CPPFLAGS+=		-DIOV_MAX=16 # default is INT_MAX, way too large
-.if exists(/usr/local/include/bind/resolv.h)
+.  if exists(/usr/local/include/bind/resolv.h)
 CPPFLAGS+=		-I/usr/local/include/bind
 BUILDLINK_PASSTHRU_DIRS+= /usr/local/include/bind
-.elif exists(/usr/local/bind/include/resolv.h)
+.  elif exists(/usr/local/bind/include/resolv.h)
 CPPFLAGS+=		-I/usr/local/bind/include
 BUILDLINK_PASSTHRU_DIRS+= /usr/local/bind/include
-.endif
+.  endif
 LDFLAGS+=		-L/usr/local/lib/bind
 LIBS+=			-lbind -ldb -lcrypt
 
@@ -72,14 +70,13 @@ PKG_SYSCONFSUBDIR=	ssh
 
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--with-mantype=man
-CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR:Q}
-CONFIGURE_ARGS+=	--with-pid-dir=${SSH_PID_DIR:Q}
-CONFIGURE_ARGS+=	--with-ssl-dir=${SSLBASE:Q}
+CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR}
+CONFIGURE_ARGS+=	--with-pid-dir=${SSH_PID_DIR}
 CONFIGURE_ARGS+=	--with-tcp-wrappers=${BUILDLINK_PREFIX.tcp_wrappers}
 
 .if ${OPSYS} != "Interix"
 CONFIGURE_ARGS+=	--with-privsep-path=${OPENSSH_CHROOT:Q}
-CONFIGURE_ARGS+=	--with-privsep-user=${OPENSSH_USER:Q}
+CONFIGURE_ARGS+=	--with-privsep-user=${OPENSSH_USER}
 .endif
 
 # pkgsrc already enforces a "secure" version of zlib via dependencies,
@@ -110,15 +107,17 @@ CONFIGURE_ARGS+=	--disable-libutil
 # prior version don't have it.  So, disable use of strnvis(3) now.
 #
 CONFIGURE_ENV+=		ac_cv_func_strnvis=no
+#
+# workaround for ./configure problem, pkg/50936
+#
+CONFIGURE_ENV+=		ac_cv_func_reallocarray=no
 .endif
 
 .if (${OPSYS} == "SunOS") && (${OS_VERSION} == "5.8" || ${OS_VERSION} == "5.9")
 CONFIGURE_ARGS+=	--disable-utmp --disable-wtmp
 .endif
 
-.if ${OPSYS} == "Linux"
-CONFIGURE_ARGS+=	--enable-md5-password
-.endif
+CONFIGURE_ARGS.Linux+=	--enable-md5-password
 
 # The ssh-askpass program is in ${X11BASE}/bin or ${PREFIX}/bin depending
 # on if it's part of the X11 distribution, or if it's installed from pkgsrc
@@ -141,17 +140,7 @@ CONFIGURE_ARGS+=	--with-xauth=${PREFIX}/bin/xauth
 
 CONFS=			ssh_config sshd_config moduli
 
-PLIST_VARS+=		darwin prng
-
-.if exists(/dev/urandom)
-.  if ${OPSYS} == "NetBSD"
-MESSAGE_SRC+=		${.CURDIR}/MESSAGE.urandom
-.  endif
-.else
-CONFIGURE_ARGS+=	--without-random
-CONFS+=			ssh_prng_cmds
-PLIST.prng=		yes
-.endif
+PLIST_VARS+=		darwin
 
 EGDIR=			${PREFIX}/share/examples/${PKGBASE}
 
@@ -170,7 +159,7 @@ RCD_SCRIPTS=		sshd
 RCD_SCRIPT_SRC.sshd=	${WRKDIR}/sshd.sh
 SMF_METHODS=		sshd
 
-FILES_SUBST+=		SSH_PID_DIR=${SSH_PID_DIR:Q}
+FILES_SUBST+=		SSH_PID_DIR=${SSH_PID_DIR}
 
 SUBST_CLASSES+=		patch
 SUBST_STAGE.patch=	pre-configure
@@ -179,7 +168,6 @@ SUBST_SED.patch=	-e '/channel_input_port_forward_request/s/0/ROOTUID/'
 SUBST_VARS.patch=	PKG_SYSCONFDIR
 
 .include "../../devel/zlib/buildlink3.mk"
-.include "../../security/openssl/buildlink3.mk"
 .include "../../security/tcp_wrappers/buildlink3.mk"
 
 #
@@ -197,7 +185,7 @@ post-configure:
 		${SED} -e '/HAVE_ECDSA_START/,/HAVE_ECDSA_STOP/d' \
 			${FILESDIR}/sshd.sh > ${WRKDIR}/sshd.sh; \
 	fi
-	${SED} -e 's,@VARBASE@,${VARBASE:Q},g' \
+	${SED} -e 's,@VARBASE@,${VARBASE},g' \
 		< ${FILESDIR}/org.openssh.sshd.sb.in \
 		> ${WRKDIR}/org.openssh.sshd.sb
 
