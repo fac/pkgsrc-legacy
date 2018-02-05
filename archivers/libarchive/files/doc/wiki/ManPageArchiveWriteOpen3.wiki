@@ -11,23 +11,23 @@ Streaming Archive Library (libarchive, -larchive)
 == SYNOPSIS == 
 '''<nowiki>#include <archive.h></nowiki>''' 
 <br> 
-'''int''' 
+''int'' 
 <br> 
 '''archive_write_open'''(''struct archive *'', ''void *client_data'', ''archive_open_callback *'', ''archive_write_callback *'', ''archive_close_callback *''); 
 <br> 
-'''int''' 
+''int'' 
 <br> 
 '''archive_write_open_fd'''(''struct archive *'', ''int fd''); 
 <br> 
-'''int''' 
+''int'' 
 <br> 
 '''archive_write_open_FILE'''(''struct archive *'', ''FILE *file''); 
 <br> 
-'''int''' 
+''int'' 
 <br> 
 '''archive_write_open_filename'''(''struct archive *'', ''const char *filename''); 
 <br> 
-'''int''' 
+''int'' 
 <br> 
 '''archive_write_open_memory'''(''struct archive *'', ''void *buffer'', ''size_t bufferSize'', ''size_t *outUsed''); 
 == DESCRIPTION == 
@@ -37,6 +37,7 @@ Freeze the settings, open the archive, and prepare for writing entries.
 This is the most generic form of this function, which accepts 
 pointers to three callback functions which will be invoked by 
 the compression layer to write the constructed archive. 
+This does not alter the default archive padding. 
 </dd><dt>'''archive_write_open_fd'''()</dt><dd> 
 A convenience form of 
 '''archive_write_open'''() 
@@ -49,7 +50,7 @@ block-oriented devices.
 A convenience form of 
 '''archive_write_open'''() 
 that accepts a 
-'''FILE *''' 
+''FILE *'' 
 pointer. 
 Note that 
 '''archive_write_open_FILE'''() 
@@ -87,19 +88,28 @@ A convenience form of
 that accepts a pointer to a block of memory that will receive 
 the archive. 
 The final 
-'''size_t *''' 
+''size_t *'' 
 argument points to a variable that will be updated 
 after each write to reflect how much of the buffer 
 is currently in use. 
 You should be careful to ensure that this variable 
 remains allocated until after the archive is 
 closed. 
+This function will disable padding unless you 
+have specifically set the block size. 
 </dd></dl> 
 More information about the 
 ''struct'' archive 
 object and the overall design of the library can be found in the 
-'''libarchive'''(3) 
+[[ManPageibarchive3]] 
 overview. 
+
+Note that the convenience forms above vary in how 
+they block the output. 
+See 
+[[ManPagerchiveritelocksize3]] 
+if you need to control the block size used for writes 
+or the end-of-file padding behavior. 
 == CLIENT CALLBACKS == 
 To use this library, you will need to define and register 
 callback functions that will be invoked to write data to the 
@@ -108,7 +118,7 @@ These functions are registered by calling
 '''archive_write_open'''(): 
 <ul> 
 <li> 
-'''typedef int''' 
+''typedef int'' 
 '''archive_open_callback'''(''struct archive *'', ''void *client_data'') 
 </li></ul> 
 
@@ -124,7 +134,7 @@ to register an error code and message and return
 '''ARCHIVE_FATAL'''. 
 <ul> 
 <li> 
-'''typedef ssize_t''' 
+''typedef la_ssize_t'' 
 '''archive_write_callback'''(''struct archive *'', ''void *client_data'', ''const void *buffer'', ''size_t length'') 
 </li></ul> 
 
@@ -132,7 +142,7 @@ The write callback is invoked whenever the library
 needs to write raw bytes to the archive. 
 For correct blocking, each call to the write callback function 
 should translate into a single 
-'''write'''(2) 
+[[write(2)|http://www.freebsd.org/cgi/man.cgi?query=write&sektion=2]] 
 system call. 
 This is especially critical when writing archives to tape drives. 
 On success, the write callback should return the 
@@ -142,7 +152,7 @@ On error, the callback should invoke
 to register an error code and message and return -1. 
 <ul> 
 <li> 
-'''typedef int''' 
+''typedef int'' 
 '''archive_close_callback'''(''struct archive *'', ''void *client_data'') 
 </li></ul> 
 
@@ -185,13 +195,14 @@ and
 '''archive_error_string'''() 
 functions. 
 == SEE ALSO == 
-'''tar'''(1), 
-'''libarchive'''(3), 
-'''archive_write'''(3), 
-'''archive_write_filter'''(3), 
-'''archive_write_format'''(3), 
-'''archive_write_new'''(3), 
-'''archive_write_set_options'''(3), 
-'''cpio'''(5), 
-'''mtree'''(5), 
-'''tar'''(5) 
+[[ManPageBsdtar1]], 
+[[ManPageibarchive3]], 
+[[ManPagerchiverite3]], 
+[[ManPagerchiveritelocksize3]], 
+[[ManPagerchiveriteilter3]], 
+[[ManPagerchiveriteormat3]], 
+[[ManPagerchiveriteew3]], 
+[[ManPagerchiveriteetptions3]], 
+[[ManPageCpio5]], 
+[[ManPageMtree5]], 
+[[ManPageTar5]] 
