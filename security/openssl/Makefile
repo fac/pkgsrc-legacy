@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.223 2016/05/03 14:51:16 jperkin Exp $
+# $NetBSD: Makefile,v 1.236 2017/12/14 20:44:20 tron Exp $
 
-DISTNAME=	openssl-1.0.2k
+DISTNAME=	openssl-1.0.2n
+PKGREVISION=	1
 CATEGORIES=	security
 MASTER_SITES=	https://www.openssl.org/source/
 
@@ -17,11 +18,8 @@ BUILD_DEPENDS+=	p5-Perl4-CoreLibs-[0-9]*:../../devel/p5-Perl4-CoreLibs
 
 USE_GCC_RUNTIME=	yes
 
-.include "../../mk/bsd.prefs.mk"
-.include "../../mk/compiler.mk"
-
 USE_MULTIARCH=		bin lib
-USE_TOOLS+=		fgrep gmake perl
+USE_TOOLS+=		fgrep gmake makedepend perl:run
 BUILD_TARGET=		depend all
 TEST_TARGET=		tests
 MAKE_JOBS_SAFE=		no
@@ -34,6 +32,8 @@ CONFIGURE_ARGS+=	--openssldir=${PKG_SYSCONFDIR}
 CONFIGURE_ARGS+=	--libdir=lib${LIBARCHSUFFIX}
 CONFIGURE_ARGS+=	shared no-fips
 
+.include "../../mk/compiler.mk"
+
 # Avoid dependency on 'makedepend' on platforms where the default CC is set
 # to 'cc' not 'gcc' in boostrap-mk-files.  OpenSSL only supports the latter.
 .if ${PKGSRC_COMPILER} == "gcc" && ${CC} == "cc"
@@ -42,7 +42,9 @@ CC=			gcc
 
 .if ${OPSYS} == "SunOS"
 .  if ${MACHINE_ARCH} == "sparc"
-OPENSSL_MACHINE_ARCH=	${SPARC_TARGET_ARCH}
+OPENSSL_MACHINE_ARCH=	sparcv7
+.  elif ${MACHINE_ARCH} == "sparc64"
+OPENSSL_MACHINE_ARCH=	sparcv9
 .  elif ${MACHINE_ARCH} == "i386"
 OPENSSL_MACHINE_ARCH=	x86
 .  elif ${MACHINE_ARCH} == "x86_64"
@@ -79,12 +81,16 @@ CONFIGURE_ARGS+=	tru64-alpha-cc
 .elif ${OPSYS} == "Darwin"
 CONFIGURE_SCRIPT=	./Configure
 .  if defined(ABI) && ${ABI} == "64"
-CONFIGURE_ARGS+=	darwin64-${MACHINE_ARCH}-cc
-.  elif ${MACHINE_ARCH} == "powerpc"
-CONFIGURE_ARGS+=	darwin-ppc-cc
+_OS=			darwin64
 .  else
-CONFIGURE_ARGS+=	darwin-${MACHINE_ARCH}-cc
+_OS=			darwin
 .  endif
+.  if ${MACHINE_ARCH:Mpowerpc*}
+_ARCH=			ppc
+.  else
+_ARCH=			${MACHINE_ARCH}
+.endif
+CONFIGURE_ARGS+=	${_OS}-${_ARCH}-cc
 
 SUBST_CLASSES+=		dl
 SUBST_MESSAGE.dl=	Adding dynamic link compatibility library.
@@ -167,6 +173,18 @@ INSTALLATION_DIRS+=	share/examples/openssl
 # Fix the path to perl in various scripts.
 pre-configure:
 	cd ${WRKSRC} && ${PERL5} util/perlpath.pl ${PERL5}
+
+# BN_print.3 and bn_print.3 cannot co-exist on Darwin, we choose to remove
+# bn_print.3 simply because it has more aliases to the same manual page.
+PLIST_VARS+=	notmac
+.if ${OPSYS} == "Darwin"
+post-install:
+	${CP} -p ${DESTDIR}${PREFIX}/${PKGMANDIR}/man3/BN_print.3 ${WRKDIR}
+	${RM} ${DESTDIR}${PREFIX}/${PKGMANDIR}/man3/bn_print.3*
+	${MV} -f ${WRKDIR}/BN_print.3 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man3
+.else
+PLIST.notmac=	yes
+.endif
 
 .include "../../mk/dlopen.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
