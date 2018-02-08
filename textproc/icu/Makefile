@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.102 2015/10/26 09:28:20 jperkin Exp $
+# $NetBSD: Makefile,v 1.114 2017/12/14 21:28:32 adam Exp $
 
-DISTNAME=	icu4c-56_1-src
+DISTNAME=	icu4c-60_2-src
 PKGNAME=	${DISTNAME:S/4c//:S/-src//:S/_/./g}
 CATEGORIES=	textproc
 MASTER_SITES=	http://download.icu-project.org/files/icu4c/${PKGVERSION_NOREV}/
@@ -12,8 +12,9 @@ COMMENT=	Robust and full-featured Unicode services
 LICENSE=	mit
 
 WRKSRC=			${WRKDIR}/icu/source
-USE_LANGUAGES=		c c++
+USE_LANGUAGES=		c99 c++
 USE_TOOLS+=		gmake
+GCC_REQD+=		4.8
 TEST_TARGET=		check
 UNLIMIT_RESOURCES+=	datasize
 GNU_CONFIGURE=		yes
@@ -30,7 +31,7 @@ CONFIGURE_ARGS+=	--disable-threads
 
 # from ICU_CHECK_MH_FRAG in source/acinclude.m4
 .if ${OPSYS} == "SunOS"
-.  if ${PKGSRC_COMPILER} == "clang" || ${PKGSRC_COMPILER} == "gcc"
+.  if ${PKGSRC_COMPILER:Mclang} || ${PKGSRC_COMPILER:Mgcc}
 PLIST_SUBST+=		MH_NAME=mh-solaris-gcc
 .  else
 PLIST_SUBST+=		MH_NAME=mh-solaris
@@ -89,10 +90,6 @@ PLIST_SUBST+=		MH_NAME=mh-qnx
 PLIST_SUBST+=		MH_NAME=mh-unknown
 .endif
 
-.if ${OPSYS} == "Cygwin"
-INSTALL_UNSTRIPPED=	yes
-.endif
-
 PKGCONFIG_OVERRIDE+=	config/icu-i18n.pc
 PKGCONFIG_OVERRIDE+=	config/icu-io.pc
 PKGCONFIG_OVERRIDE+=	config/icu-le.pc
@@ -111,6 +108,7 @@ CFLAGS+=	-march=i486
 .endif
 
 .if ${OPSYS} == "Cygwin"
+INSTALL_UNSTRIPPED=	yes
 SO_MAJOR=		${PKGVERSION_NOREV:R}
 .  for l in data i18n io le lx test tu uc
 GENERATE_PLIST+=	${ECHO} bin/cygicu${l}${SO_MAJOR}.dll;
