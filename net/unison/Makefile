@@ -3,7 +3,7 @@
 DISTNAME=	unison-2.48.3
 # XXX remove DIST_SUBDIR with next release
 DIST_SUBDIR=	${DISTNAME}-release
-PKGREVISION=	7
+PKGREVISION=	8
 CATEGORIES=	net
 MASTER_SITES=	http://www.seas.upenn.edu/~bcpierce/unison/download/releases/stable/
 

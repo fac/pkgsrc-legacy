@@ -2,7 +2,7 @@
 #
 
 DISTNAME=	yaz-4.1.6
-PKGREVISION=	16
+PKGREVISION=	17
 CATEGORIES=	net
 MASTER_SITES=	http://ftp.indexdata.dk/pub/yaz/
 

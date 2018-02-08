@@ -6,7 +6,7 @@ BUILDLINK_TREE+=	gnustep-back
 GNUSTEP_BACK_BUILDLINK3_MK:=
 
 BUILDLINK_API_DEPENDS.gnustep-back+=	gnustep-back>=0.9.2
-BUILDLINK_ABI_DEPENDS.gnustep-back+=	gnustep-back>=0.22.0nb9
+BUILDLINK_ABI_DEPENDS.gnustep-back+=	gnustep-back>=0.22.0nb12
 BUILDLINK_PKGSRCDIR.gnustep-back?=	../../x11/gnustep-back
 
 .include "../../x11/gnustep-gui/buildlink3.mk"

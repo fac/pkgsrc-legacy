@@ -3,7 +3,7 @@
 
 DISTNAME=	coq-8.4pl6
 PKGNAME=	${DISTNAME} # to avoid prefixing with ocaml-
-PKGREVISION=	3
+PKGREVISION=	4
 CATEGORIES=	lang math
 MASTER_SITES=	http://coq.inria.fr/distrib/V${PKGVERSION_NOREV}/files/
 

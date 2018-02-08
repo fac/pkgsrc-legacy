@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.9 2015/10/10 01:57:57 ryoon Exp $
 
 DISTNAME=	lablgtk-2.18.3
-PKGREVISION=	6
+PKGREVISION=	7
 CATEGORIES=	x11
 MASTER_SITES=	http://forge.ocamlcore.org/frs/download.php/1479/
 

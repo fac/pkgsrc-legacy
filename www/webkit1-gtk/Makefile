@@ -3,7 +3,7 @@
 .include "Makefile.common"
 
 PKGNAME=	${DISTNAME:S/webkitgtk/webkit-gtk/}
-PKGREVISION=	22
+PKGREVISION=	23
 
 COMMENT=	GTK2 port of the WebKit browser engine (v1)
 

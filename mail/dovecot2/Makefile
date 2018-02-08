@@ -5,6 +5,7 @@
 # must match (see PR 49563).
 
 DISTNAME=	dovecot-2.2.19
+PKGREVISION=	1
 CATEGORIES=	mail
 MASTER_SITES=	http://www.dovecot.org/releases/${PKGVERSION_NOREV:R}/
 

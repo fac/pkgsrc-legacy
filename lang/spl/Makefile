@@ -2,7 +2,7 @@
 #
 
 DISTNAME=	spl-1.0pre3
-PKGREVISION=	13
+PKGREVISION=	14
 CATEGORIES=	lang
 MASTER_SITES=	http://www.clifford.at/spl/releases/ \
 		http://www.clifford.at/spl/releases/OLD/

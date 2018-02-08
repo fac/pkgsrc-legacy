@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.9 2015/10/10 01:57:53 ryoon Exp $
 
 DISTNAME=	rakudo-star-2013.08
-PKGREVISION=	7
+PKGREVISION=	8
 CATEGORIES=	lang perl6
 MASTER_SITES=	http://rakudo.org/downloads/star/
 

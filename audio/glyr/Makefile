@@ -3,7 +3,7 @@
 
 DISTNAME=	1.0.8
 PKGNAME=	glyr-${DISTNAME}
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	audio
 MASTER_SITES=	https://github.com/sahib/glyr/archive/
 DIST_SUBDIR=	${PKGBASE}

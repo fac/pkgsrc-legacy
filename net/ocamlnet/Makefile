@@ -3,7 +3,7 @@
 
 DISTNAME=		ocamlnet-3.7.7
 PKGNAME=	${DISTNAME} # in order to avoid prefixing with ocaml-
-PKGREVISION=	5
+PKGREVISION=	6
 CATEGORIES=		net
 MASTER_SITES=		http://download.camlcity.org/download/
 

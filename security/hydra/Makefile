@@ -2,7 +2,7 @@
 #
 
 DISTNAME=	hydra-7.5
-PKGREVISION=	11
+PKGREVISION=	12
 CATEGORIES=	security
 MASTER_SITES=	http://freeworld.thc.org/releases/
 

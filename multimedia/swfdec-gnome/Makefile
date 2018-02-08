@@ -2,7 +2,7 @@
 #
 
 DISTNAME=	swfdec-gnome-2.28.0
-PKGREVISION=	41
+PKGREVISION=	42
 CATEGORIES=	multimedia gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/swfdec-gnome/2.28/}
 EXTRACT_SUFX=	.tar.bz2
