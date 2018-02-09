@@ -2,7 +2,7 @@
 #
 
 DISTNAME=		scim-chewing-0.3.5
-PKGREVISION=		8
+PKGREVISION=		9
 CATEGORIES=		inputmethod
 MASTER_SITES=		http://chewing.googlecode.com/files/
 EXTRACT_SUFX=		.tar.bz2

@@ -3,7 +3,7 @@
 
 GST_PLUGINS0.10_NAME=	soup
 GST_PLUGINS0.10_DIRS=	ext/soup
-PKGREVISION=		12
+PKGREVISION=		13
 
 .include "../../multimedia/gst-plugins0.10-good/Makefile.common"
 

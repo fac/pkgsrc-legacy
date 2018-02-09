@@ -2,7 +2,7 @@
 
 DISTNAME=	ocamlgraph-1.8.5
 PKGNAME=	${DISTNAME} # avoid prefixing with ocaml-
-PKGREVISION=	5
+PKGREVISION=	6
 CATEGORIES=	devel
 MASTER_SITES=	http://ocamlgraph.lri.fr/download/
 

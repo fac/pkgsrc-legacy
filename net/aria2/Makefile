@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.59 2015/10/17 09:14:43 adam Exp $
 
 DISTNAME=	aria2-1.19.2
+PKGREVISION=	1
 CATEGORIES=	net
 MASTER_SITES=	${MASTER_SITE_GITHUB:=tatsuhiro-t/}
 EXTRACT_SUFX=	.tar.xz

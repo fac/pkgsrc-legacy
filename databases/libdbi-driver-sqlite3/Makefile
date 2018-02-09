@@ -3,7 +3,7 @@
 
 .include "../../databases/libdbi-driver-sqlite3/Makefile_drivers"
 
-PKGREVISION=		9
+PKGREVISION=		10
 LICENSE=		gnu-lgpl-v2
 
 DRIVER=			sqlite3

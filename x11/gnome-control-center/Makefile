@@ -2,7 +2,7 @@
 #
 
 DISTNAME=	gnome-control-center-2.32.1
-PKGREVISION=	39
+PKGREVISION=	40
 CATEGORIES=	x11 gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/gnome-control-center/2.32/}
 EXTRACT_SUFX=	.tar.bz2

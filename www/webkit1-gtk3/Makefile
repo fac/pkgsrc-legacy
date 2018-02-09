@@ -3,7 +3,7 @@
 .include "../../www/webkit1-gtk/Makefile.common"
 
 PKGNAME=	${DISTNAME:S/webkitgtk/webkit-gtk3/}
-PKGREVISION=	16
+PKGREVISION=	17
 
 COMMENT=	GTK3 port of the WebKit browser engine (v1)
 

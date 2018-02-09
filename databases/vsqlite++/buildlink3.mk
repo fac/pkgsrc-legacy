@@ -6,7 +6,7 @@ BUILDLINK_TREE+=	vsqlite++
 VSQLITE++_BUILDLINK3_MK:=
 
 BUILDLINK_API_DEPENDS.vsqlite+++=	vsqlite++>=0.3.13
-BUILDLINK_ABI_DEPENDS.vsqlite++?=	vsqlite++>=0.3.13nb1
+BUILDLINK_ABI_DEPENDS.vsqlite++?=	vsqlite++>=0.3.13nb3
 BUILDLINK_PKGSRCDIR.vsqlite++?=	../../databases/vsqlite++
 
 .include "../../databases/sqlite3/buildlink3.mk"

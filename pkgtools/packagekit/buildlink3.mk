@@ -6,7 +6,7 @@ BUILDLINK_TREE+=	packagekit
 PACKAGEKIT_BUILDLINK3_MK:=
 
 BUILDLINK_API_DEPENDS.packagekit+=	packagekit>=0.4.0
-BUILDLINK_ABI_DEPENDS.packagekit+=	packagekit>=0.4.0nb34
+BUILDLINK_ABI_DEPENDS.packagekit+=	packagekit>=0.4.0nb37
 BUILDLINK_PKGSRCDIR.packagekit?=	../../pkgtools/packagekit
 
 .include "../../databases/sqlite3/buildlink3.mk"

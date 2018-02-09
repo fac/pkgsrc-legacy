@@ -2,7 +2,7 @@
 #
 
 DISTNAME=	dbus-sharp-glib-0.5.0
-PKGREVISION=	6
+PKGREVISION=	7
 CATEGORIES=	sysutils
 MASTER_SITES=	https://cloud.github.com/downloads/mono/dbus-sharp/
 

@@ -2,7 +2,7 @@
 #
 
 DISTNAME=	geeqie-1.2.2
-PKGREVISION=	3
+PKGREVISION=	4
 EXTRACT_SUFX=	.tar.xz
 CATEGORIES=	graphics
 MASTER_SITES=	http://www.geeqie.org/
