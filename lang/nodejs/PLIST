@@ -23,6 +23,7 @@ include/node/uv-darwin.h
 include/node/uv-errno.h
 include/node/uv-linux.h
 include/node/uv-os390.h
+include/node/uv-posix.h
 include/node/uv-sunos.h
 include/node/uv-threadpool.h
 include/node/uv-unix.h
