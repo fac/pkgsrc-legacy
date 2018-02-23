@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.36 2016/10/02 09:12:50 fhajny Exp $
 
 DISTNAME=	tmux-2.3
+PKGREVISION=	1
 CATEGORIES=	misc
 MASTER_SITES=	${MASTER_SITE_GITHUB:=tmux/}
 

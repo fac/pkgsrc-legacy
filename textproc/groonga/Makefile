@@ -2,6 +2,7 @@
 #
 
 DISTNAME=	groonga-4.1.1
+PKGREVISION=	1
 CATEGORIES=	textproc
 MASTER_SITES=	http://packages.groonga.org/source/groonga/
 

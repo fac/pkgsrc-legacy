@@ -2,7 +2,7 @@
 #
 
 DISTNAME=	trickle-1.06
-PKGREVISION=	14
+PKGREVISION=	15
 CATEGORIES=	net
 MASTER_SITES=	http://monkey.org/~marius/trickle/
 
