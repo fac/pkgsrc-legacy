@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.19 2015/09/23 08:25:09 he Exp $
+# $NetBSD: Makefile,v 1.42 2018/04/17 22:29:33 wiz Exp $
 
 DISTNAME=	ghostscript-${GS_VERSION}
 PKGNAME=	${DISTNAME:S/ghostscript/ghostscript-gpl/}
-PKGREVISION=	7
+PKGREVISION=	25
 CATEGORIES=	print
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=ghostscript/}
-MASTER_SITES+=	http://ghostscript.com/releases/
+MASTER_SITES+=	https://ghostscript.com/releases/
 EXTRACT_SUFX=	.tar.bz2
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
@@ -34,6 +34,7 @@ UNLIMIT_RESOURCES+=	datasize	# gsromfs1.c
 BUILD_TARGET=		so
 INSTALL_TARGET=		soinstall
 CONFIGURE_ARGS+=	--with-omni=no	# otherwise pulls in libstdc++
+CONFIGURE_ARGS+=	--with-system-libtiff
 
 REPLACE_PERL+=		toolbin/localcluster/clusterpush.pl
 REPLACE_PERL+=		toolbin/checkdeps.pl
@@ -66,9 +67,7 @@ SUBST_MESSAGE.resdir=	Fixing resource directory path
 SUBST_FILES.resdir=	Resource/Init/gs_res.ps
 SUBST_SED.resdir=	-e "s|/Resource/|${GS_RESOURCEDIR}/|g"
 
-.if ${OPSYS} == "HPUX"
-CONFIGURE_ENV+=		ac_cv_func_fopen64=no
-.endif
+CONFIGURE_ENV.HPUX+=	ac_cv_func_fopen64=no
 
 # On Linux-*-x86_64, there was an error message:
 # gp_unix.o: relocation R_X86_64_32 against `a local symbol' can not be
@@ -77,13 +76,17 @@ CONFIGURE_ENV+=		ac_cv_func_fopen64=no
 CFLAGS+=		-fPIC
 .endif
 
-# Interim IRIX build fix, the real problem is that fontconfig.pc doesn't
-# require linking against libiconv when it should do so.
-.if ${OPSYS} == "IRIX"
-BUILDLINK_TRANSFORM+=	l:fontconfig:fontconfig:iconv
+# Not ideal but too many files hardcode _XOPEN_SOURCE=500.
+.if !empty(CC_VERSION:Mgcc-[6-9]*) || !empty(PKGSRC_COMPILER:Mclang)
+CPPFLAGS.SunOS+=	-D_XOPEN_SOURCE=600 -D__EXTENSIONS__
 .endif
 
-CONFIGURE_ENV+=	LPLIBDIR=${PREFIX}/lib
+# Interim IRIX build fix, the real problem is that fontconfig.pc doesn't
+# require linking against libiconv when it should do so.
+BUILDLINK_TRANSFORM.IRIX+=	l:fontconfig:fontconfig:iconv
+
+CONFIGURE_ENV+=		LPLIBDIR=${PREFIX}/lib
+CONFIGURE_ENV+=		ZLIB_DIR=${BUILDLINK_PREFIX.zlib}/lib
 
 # On OpenBSD 5.3, libxcb is required libXt.
 LDFLAGS.OpenBSD+=	-lxcb
@@ -100,11 +103,8 @@ post-extract:
 	${MKDIR} ${WRKSRC}/obj
 #	${RM} -rf ${WRKSRC}/jasper
 	${RM} -rf ${WRKSRC}/libpng
-#	${RM} -rf ${WRKSRC}/tiff
-# UX:i386ld: ERROR: symbol: 'deflate_copyright' defined in two shared objects: libgs.so: size = 53, libz.so.1: size = 68
-.if ${OS_VARIANT} == "SCOOSR5"
+	${RM} -rf ${WRKSRC}/tiff
 	${RM} -rf ${WRKSRC}/zlib
-.endif
 	${RM} -rf ${WRKSRC}/freetype
 #
 #  To allow outside customization, rename cidfmap
